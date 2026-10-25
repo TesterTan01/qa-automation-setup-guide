@@ -45,7 +45,7 @@ See [docs/TRACKS.md](docs/TRACKS.md) for a plain-English explanation of each tra
 
 ```
 .
-├── index.html        The roadmap page. Open this one.
+├── QA Automation setup roadmap Index.html        The roadmap page. Open this one.
 ├── README.md         This file.
 └── docs/
     └── TRACKS.md     Explains each track and when to pick it.
@@ -58,7 +58,7 @@ The page is one self-contained file. It has no build step and needs no internet 
 Download the repository, then double-click `QA Automation setup roadmap Index.html`. Or, with Git:
 
 ```bash
-git clone [https://TesterTan01.github.io/qa-test automation-setup-guide/]
+git clone https://TesterTan01.github.io/qa-test automation-setup-guide/
 cd qa-automation-setup-guide
 ```
 
