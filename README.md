@@ -55,21 +55,21 @@ The page is one self-contained file. It has no build step and needs no internet 
 
 ## Run it on your own computer
 
-Download the repository, then double-click `index.html`. Or, with Git:
+Download the repository, then double-click `QA Automation setup roadmap Index.html`. Or, with Git:
 
 ```bash
 git clone https://github.com/YOUR-USERNAME/YOUR-REPO-NAME.git
 cd YOUR-REPO-NAME
 ```
 
-Then open `index.html` in your browser.
+Then open `QA Automation setup roadmap Index.html` in your browser.
 
 ## Contributing
 
 Found a command that no longer works, or a tool that is missing? Please help.
 
 1. Open an **Issue** describing what you tried, your operating system and what happened.
-2. Or fork the repo, edit `index.html`, and open a **Pull Request**. Each track lives in the `TRACK` section of the script at the bottom of the file.
+2. Or fork the repo, edit `QA Automation setup roadmap Index.html`, and open a **Pull Request**. Each track lives in the `TRACK` section of the script at the bottom of the file.
 
 Before you submit, run the track you changed on a real machine. Install steps go out of date quickly, so a tested fix is the most useful one.
 
@@ -92,4 +92,4 @@ Add a licence file if you want others to reuse this. The MIT licence is a common
 
 ## Author
 
-Built by YOUR-NAME, Test Engineer, as part of a learning portfolio.
+Built by Tanesh Nathman, Test Engineer, as part of a learning portfolio.
