@@ -2,7 +2,7 @@
 
 A single web page that helps you choose an automation testing tool and shows you, step by step, how to install it. Pick what you want to test, your programming language and your computer, then copy the commands and tick off each step.
 
-**Live page:** [https://YOUR-USERNAME.github.io/YOUR-REPO-NAME/](https://github.com/TesterTan01/qa-automation-setup-guide/)
+**Live page:** [https://TesterTan01.github.io/qa-test automation-setup-guide/](https://github.com/TesterTan01/qa-automation-setup-guide/)
 
 
 
