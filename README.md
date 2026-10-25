@@ -16,7 +16,7 @@ You do not need to install anything to use the page. Open it in any browser.
 
 ## How to use it
 
-1. Open the live page (or open `index.html` from a downloaded copy).
+1. Open the live page (or open `QA Automation setup roadmap Index.html` from a downloaded copy).
 2. Choose **what you need to test**.
 3. Choose your **language** if the page asks for one.
 4. Choose your **computer**: Windows, macOS or Linux.
@@ -58,7 +58,7 @@ The page is one self-contained file. It has no build step and needs no internet 
 Download the repository, then double-click `QA Automation setup roadmap Index.html`. Or, with Git:
 
 ```bash
-git clone [https://TesterTan01.github.io/qa-test automation-setup-guide/](https://github.com/TesterTan01/qa-automation-setup-guide/)
+git clone [https://TesterTan01.github.io/qa-test automation-setup-guide/]
 cd qa-automation-setup-guide
 ```
 
