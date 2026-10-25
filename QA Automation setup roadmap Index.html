@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>QA Automation Setup Roadmap</title>
+<style>
+:root{--bg:#f2f6f3;--card:#fff;--ink:#12251f;--mute:#546861;--line:#d3ddd7;--pass:#0e8a5e;--passbg:#dff3ea;--accent:#2355d4;--code:#10231f;--codeink:#d8f3e6;--warn:#9a6700}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0e1815;--card:#15251f;--ink:#e6f2ec;--mute:#93aaa0;--line:#27403670;--pass:#3fd49b;--passbg:#14382c;--accent:#7fa2ff;--code:#08110e;--codeink:#c9f0dd;--warn:#e3b341}}
+:root[data-theme="dark"]{--bg:#0e1815;--card:#15251f;--ink:#e6f2ec;--mute:#93aaa0;--line:#274036;--pass:#3fd49b;--passbg:#14382c;--accent:#7fa2ff;--code:#08110e;--codeink:#c9f0dd;--warn:#e3b341}
+*{box-sizing:border-box}
+html{scroll-padding-top:12px}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+main{max-width:860px;margin:0 auto;padding:40px 20px 64px}
+h1{font-size:clamp(2rem,6vw,3.2rem);line-height:1.05;letter-spacing:-.03em;margin:0 0 12px;font-weight:800}
+.lede{color:var(--mute);max-width:60ch;margin:0 0 32px}
+fieldset{border:0;padding:0;margin:0 0 22px}
+legend{font-weight:700;margin-bottom:10px;padding:0}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chips input{position:absolute;opacity:0;pointer-events:none}
+.chips label{border:1.5px solid var(--line);background:var(--card);border-radius:999px;padding:8px 16px;cursor:pointer;font-weight:600;font-size:.95rem}
+.chips input:checked+label{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.chips input:focus-visible+label{outline:3px solid var(--accent);outline-offset:2px}
+.hint{color:var(--mute);font-size:.9rem;margin:8px 0 0}
+.summary{background:var(--card);border:1.5px solid var(--line);border-radius:12px;padding:18px 20px;margin:30px 0 18px}
+.summary h2{margin:0 0 4px;font-size:1.25rem}
+.summary p{margin:0;color:var(--mute)}
+.bar{height:8px;background:var(--line);border-radius:8px;margin-top:14px;overflow:hidden}
+.bar i{display:block;height:100%;width:0;background:var(--pass);transition:width .3s}
+.count{font-size:.9rem;color:var(--mute);margin-top:6px}
+ol{list-style:none;margin:0;padding:0;position:relative}
+.step{background:var(--card);border:1.5px solid var(--line);border-radius:10px;margin:0 0 12px;padding:16px 18px}
+.step.done{border-color:var(--pass);background:linear-gradient(0deg,var(--passbg),var(--passbg)) ,var(--card)}
+.head{display:flex;gap:14px;align-items:flex-start}
+.tick{flex:none;width:30px;height:30px;border-radius:50%;border:2px solid var(--line);background:var(--card);color:transparent;cursor:pointer;font-size:1rem;font-weight:800;display:grid;place-items:center;padding:0}
+.tick:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.done .tick{background:var(--pass);border-color:var(--pass);color:#fff}
+.step h3{margin:0;font-size:1.1rem}
+.step .why{margin:2px 0 0;color:var(--mute);font-size:.95rem}
+.cmds{margin:14px 0 0 44px}
+.cmd{position:relative;background:var(--code);color:var(--codeink);border-radius:8px;margin:0 0 8px;padding:11px 74px 11px 14px;font:.86rem/1.5 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;overflow-x:auto;white-space:pre}
+.cmd button{position:absolute;right:8px;top:8px;border:1px solid #ffffff40;background:#ffffff14;color:inherit;border-radius:6px;padding:3px 10px;font:inherit;font-size:.78rem;cursor:pointer}
+.cmd button:focus-visible{outline:2px solid #fff}
+.note{margin:6px 0 0 44px;font-size:.9rem;color:var(--warn)}
+section.more{margin-top:44px}
+section.more h2{font-size:1.3rem;margin:0 0 12px}
+.links{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:10px;padding:0;margin:0 0 28px;list-style:none}
+.links a{display:block;background:var(--card);border:1.5px solid var(--line);border-radius:10px;padding:12px 14px;color:var(--accent);font-weight:600;text-decoration:none}
+.links a span{display:block;color:var(--mute);font-weight:400;font-size:.85rem}
+.links a:hover{border-color:var(--accent)}
+.links a:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.tips{background:var(--card);border:1.5px solid var(--line);border-radius:12px;padding:6px 22px 6px 40px}
+.tips li{margin:12px 0}
+.reset{margin-top:18px;background:none;border:1.5px solid var(--line);color:var(--mute);border-radius:8px;padding:6px 12px;cursor:pointer;font:inherit;font-size:.9rem}
+@media (max-width:520px){.cmds,.note{margin-left:0}}
+@media (prefers-reduced-motion:reduce){.bar i{transition:none}}
+</style>
+</head>
+<body>
+<main>
+<h1>QA automation setup roadmap</h1>
+<p class="lede">Pick what you need to test, your language and your computer. You get the tools to install, in order, with commands to copy. Tick each step as you finish it.</p>
+
+<fieldset id="goal"><legend>What do you need to test?</legend>
+<div class="chips" role="radiogroup">
+<input type="radio" name="goal" id="g-web" value="web" checked><label for="g-web">Web UI: Playwright</label>
+<input type="radio" name="goal" id="g-cypress" value="cypress"><label for="g-cypress">Web UI: Cypress</label>
+<input type="radio" name="goal" id="g-selenium" value="selenium"><label for="g-selenium">Web UI: Selenium</label>
+<input type="radio" name="goal" id="g-robot" value="robot"><label for="g-robot">Web UI: Robot Framework</label>
+<input type="radio" name="goal" id="g-api" value="api"><label for="g-api">APIs</label>
+<input type="radio" name="goal" id="g-mobile" value="mobile"><label for="g-mobile">Mobile apps</label>
+<input type="radio" name="goal" id="g-perf" value="perf"><label for="g-perf">Performance</label>
+<input type="radio" name="goal" id="g-ci" value="ci"><label for="g-ci">Run tests on every push (CI)</label>
+</div></fieldset>
+
+<fieldset id="langset"><legend>Language</legend>
+<div class="chips" role="radiogroup">
+<input type="radio" name="lang" id="l-ts" value="ts" checked><label for="l-ts">TypeScript</label>
+<input type="radio" name="lang" id="l-py" value="py"><label for="l-py">Python</label>
+<input type="radio" name="lang" id="l-java" value="java"><label for="l-java">Java</label>
+<input type="radio" name="lang" id="l-net" value="net"><label for="l-net">.NET (C#)</label>
+</div>
+<p class="hint" id="langhint"></p></fieldset>
+
+<fieldset><legend>Your computer</legend>
+<div class="chips" role="radiogroup">
+<input type="radio" name="os" id="o-win" value="win"><label for="o-win">Windows</label>
+<input type="radio" name="os" id="o-mac" value="mac"><label for="o-mac">macOS</label>
+<input type="radio" name="os" id="o-linux" value="linux"><label for="o-linux">Linux</label>
+</div></fieldset>
+
+<div class="summary" aria-live="polite">
+<h2 id="sumTitle"></h2><p id="sumText"></p>
+<div class="bar"><i id="bar"></i></div><div class="count" id="count"></div>
+</div>
+
+<ol id="steps"></ol>
+<button class="reset" id="reset" type="button">Clear ticks</button>
+
+<section class="more">
+<h2>Where to keep learning</h2>
+<ul class="links">
+<li><a href="https://modernqacourse.com/">Modern QA Course<span>Structured QA learning</span></a></li>
+<li><a href="https://testautomationu.applitools.com/">Test Automation University<span>Free automation courses</span></a></li>
+<li><a href="https://www.ministryoftesting.com/">Ministry of Testing<span>Community and articles</span></a></li>
+<li><a href="https://www.softwaretestinghelp.com/">Software Testing Help<span>Tutorials and guides</span></a></li>
+</ul>
+<h2>Turn this into portfolio projects</h2>
+<ol class="tips" style="list-style:decimal">
+<li>Create one GitHub repo per tool, named by what it does, for example <b>playwright-ts-saucedemo-tests</b>.</li>
+<li>Test a public practice site, such as saucedemo.com or the Playwright demo todo app.</li>
+<li>Write a README with what you test, how to install, how to run, and a screenshot of the HTML report.</li>
+<li>Commit small and often. A history of steady commits shows how you work.</li>
+<li>Add a GitHub Actions workflow so a green tick appears on your repo.</li>
+</ol>
+</section>
+</main>
+
+<script>
+var V="ms-playwright.playwright";
+var FOUND={
+vscode:{t:"Install VS Code",w:"Your editor for writing and debugging tests.",c:{win:["winget install Microsoft.VisualStudioCode"],mac:["brew install --cask visual-studio-code"],linux:["sudo snap install code --classic"]},n:{mac:"No Homebrew? Install it first from brew.sh."},x:["code --install-extension "+V,"code --install-extension ms-python.python","code --install-extension vscjava.vscode-java-pack","code --install-extension ms-dotnettools.csdevkit"]},
+git:{t:"Install Git and sign in to GitHub",w:"Saves your work and publishes it to your portfolio.",c:{win:["winget install Git.Git"],mac:["brew install git"],linux:["sudo apt install git"]},x:['git config --global user.name "Your Name"','git config --global user.email "you@example.com"',"git --version"],n:{all:"Create a free account at github.com first, then use the same email above."}},
+node:{t:"Install Node.js (LTS)",w:"Runs Playwright with TypeScript and many other tools.",c:{win:["winget install OpenJS.NodeJS.LTS"],mac:["brew install node"],linux:["# Install nvm from github.com/nvm-sh/nvm, then:","nvm install --lts"]},x:["node -v","npm -v"],n:{all:"Close and reopen your terminal after installing."}},
+py:{t:"Install Python 3",w:"Runs pytest and Playwright for Python.",c:{win:["winget install Python.Python.3.12"],mac:["brew install python"],linux:["sudo apt install python3 python3-pip python3-venv"]},x:["python --version"],n:{mac:"On macOS and Linux the command may be python3.",linux:"The command may be python3."}}
+};
+FOUND.jdk={t:"Install Java (JDK 17)",w:"Needed to build and run Java tests.",c:{win:["winget install EclipseAdoptium.Temurin.17.JDK"],mac:["brew install --cask temurin@17"],linux:["sudo apt install openjdk-17-jdk"]},x:["java -version"],n:{all:"Close and reopen your terminal after installing."}};
+FOUND.maven={t:"Install Maven",w:"Downloads libraries and runs your Java tests.",c:{win:["# Download the zip from maven.apache.org, unzip it,","# then add its bin folder to your PATH"],mac:["brew install maven"],linux:["sudo apt install maven"]},x:["mvn -v"]};
+FOUND.dotnet={t:"Install the .NET SDK",w:"Builds and runs C# tests.",c:{win:["winget install Microsoft.DotNet.SDK.8"],mac:["brew install --cask dotnet-sdk"],linux:["sudo apt install dotnet-sdk-8.0"]},x:["dotnet --version"]};
+FOUND.pwsh={t:"Install PowerShell",w:"Playwright for .NET uses it to download browsers.",c:{win:["winget install Microsoft.PowerShell"],mac:["brew install powershell"],linux:["# Follow the Linux steps at learn.microsoft.com/powershell"]},x:["pwsh --version"]};
+var TRACK={
+"web-ts":[
+{t:"Create a Playwright project",w:"One command sets up tests, config and example files.",c:{all:["mkdir my-playwright-tests && cd my-playwright-tests","npm init playwright@latest"]},n:{all:"Choose TypeScript and say yes to downloading browsers."}},
+{t:"Run your first tests",w:"Runs the examples, then opens the HTML report.",c:{all:["npx playwright test","npx playwright show-report"]}},
+{t:"Debug with the UI mode",w:"Step through tests and watch each action.",c:{all:["npx playwright test --ui"]}},
+{t:"Publish to GitHub",w:"Your first portfolio project.",c:{all:["git init","git add .","git commit -m \"First Playwright tests\"","# Create an empty repo on github.com, then:","git remote add origin https://github.com/YOUR-NAME/my-playwright-tests.git","git push -u origin main"]}}],
+"web-py":[
+{t:"Make a project and virtual environment",w:"Keeps this project's packages separate.",c:{win:["mkdir my-pw-py && cd my-pw-py","python -m venv .venv",".venv\\Scripts\\activate"],mac:["mkdir my-pw-py && cd my-pw-py","python3 -m venv .venv","source .venv/bin/activate"],linux:["mkdir my-pw-py && cd my-pw-py","python3 -m venv .venv","source .venv/bin/activate"]}},
+{t:"Install Playwright for Python",w:"The pytest plugin plus the browsers.",c:{all:["pip install pytest-playwright","playwright install"]}},
+{t:"Write and run a test",w:"Create test_example.py, then run it with the browser visible.",c:{all:["pytest --headed"]},n:{all:"Start with: def test_title(page): page.goto('https://playwright.dev'); assert 'Playwright' in page.title()"}},
+{t:"Publish to GitHub",w:"Add a .gitignore containing .venv/ first.",c:{all:["git init","git add .","git commit -m \"First Playwright Python tests\"","git remote add origin https://github.com/YOUR-NAME/my-pw-py.git","git push -u origin main"]}}],
+"web-java":[
+{t:"Create a Maven project",w:"A standard Java project layout with JUnit included.",c:{all:["mvn archetype:generate -DgroupId=com.example -DartifactId=my-pw-java -DarchetypeArtifactId=maven-archetype-quickstart -DinteractiveMode=false","cd my-pw-java"]},n:{all:"If the build complains about the Java version, set maven.compiler.source and maven.compiler.target to 17 in pom.xml."}},
+{t:"Add Playwright to pom.xml",w:"Open pom.xml in VS Code and add this inside <dependencies>.",c:{all:[]},n:{all:"<dependency><groupId>com.microsoft.playwright</groupId><artifactId>playwright</artifactId><version>1.49.0</version></dependency> (check mvnrepository.com for the latest version)"}},
+{t:"Download the browsers",w:"One-off step after the dependency is added.",c:{all:["mvn exec:java -e -D exec.mainClass=com.microsoft.playwright.CLI -D exec.args=\"install --with-deps\""]}},
+{t:"Write and run a test",w:"Add a JUnit test that opens a page with Playwright, then run it.",c:{all:["mvn test"]}},
+{t:"Publish to GitHub",w:"Add a .gitignore containing target/ first.",c:{all:["git init","git add .","git commit -m \"First Playwright Java tests\"","git remote add origin https://github.com/YOUR-NAME/my-pw-java.git","git push -u origin main"]}}],
+"web-net":[
+{t:"Create an NUnit test project",w:"The standard C# test project template.",c:{all:["dotnet new nunit -n MyPlaywrightTests","cd MyPlaywrightTests"]}},
+{t:"Add Playwright",w:"The NUnit package includes page and browser helpers.",c:{all:["dotnet add package Microsoft.Playwright.NUnit","dotnet build"]}},
+{t:"Download the browsers",w:"One-off step. The folder name matches your .NET version.",c:{all:["pwsh bin/Debug/net8.0/playwright.ps1 install"]}},
+{t:"Write and run a test",w:"Make your test class inherit PageTest, then run it.",c:{all:["dotnet test"]}},
+{t:"Publish to GitHub",w:"Add a .gitignore first with: dotnet new gitignore",c:{all:["dotnet new gitignore","git init","git add .","git commit -m \"First Playwright .NET tests\"","git remote add origin https://github.com/YOUR-NAME/my-pw-net.git","git push -u origin main"]}}],
+"api-java":[
+{t:"Install Postman",w:"Explore an API by hand before you automate it.",c:{win:["winget install Postman.Postman"],mac:["brew install --cask postman"],linux:["sudo snap install postman"]}},
+{t:"Create a Maven project",w:"Same layout as the Web UI Java track.",c:{all:["mvn archetype:generate -DgroupId=com.example -DartifactId=my-api-tests -DarchetypeArtifactId=maven-archetype-quickstart -DinteractiveMode=false","cd my-api-tests"]}},
+{t:"Add REST Assured to pom.xml",w:"The most popular Java library for API checks.",c:{all:[]},n:{all:"Add io.rest-assured:rest-assured with scope test (see rest-assured.io for the current version)."}},
+{t:"Write and run an API test",w:"Call an endpoint and assert on status and body.",c:{all:["mvn test"]},n:{all:"Try the free practice API at jsonplaceholder.typicode.com."}}],
+"api-net":[
+{t:"Install Postman",w:"Explore an API by hand before you automate it.",c:{win:["winget install Postman.Postman"],mac:["brew install --cask postman"],linux:["sudo snap install postman"]}},
+{t:"Create an NUnit test project",w:"The built-in HttpClient is enough to call an API.",c:{all:["dotnet new nunit -n MyApiTests","cd MyApiTests"]}},
+{t:"Write and run an API test",w:"Use HttpClient to call an endpoint and assert on the status code and body.",c:{all:["dotnet test"]},n:{all:"Try the free practice API at jsonplaceholder.typicode.com."}}],
+"api-ts":[
+{t:"Install Postman",w:"Explore an API by hand before you automate it.",c:{win:["winget install Postman.Postman"],mac:["brew install --cask postman"],linux:["sudo snap install postman"]}},
+{t:"Add API tests to a Playwright project",w:"Playwright has a built-in request tool, so no extra library is needed.",c:{all:["npm init playwright@latest"]},n:{all:"In a test, use the request fixture: const res = await request.get(url); expect(res.ok()).toBeTruthy();"}},
+{t:"Run the tests",w:"",c:{all:["npx playwright test"]}}],
+"api-py":[
+{t:"Install Postman",w:"Explore an API by hand before you automate it.",c:{win:["winget install Postman.Postman"],mac:["brew install --cask postman"],linux:["sudo snap install postman"]}},
+{t:"Install pytest and requests",w:"Run these inside an activated virtual environment (python -m venv .venv).",c:{all:["pip install pytest requests"]}},
+{t:"Write and run an API test",w:"Create test_api.py, call an endpoint, assert on status and body.",c:{all:["pytest -v"]},n:{all:"Try the free practice API at reqres.in or jsonplaceholder.typicode.com."}}],
+"mobile":[
+{t:"Install Java 17",w:"Android tooling needs a JDK.",c:{win:["winget install EclipseAdoptium.Temurin.17.JDK"],mac:["brew install --cask temurin@17"],linux:["sudo apt install openjdk-17-jdk"]},x:["java -version"]},
+{t:"Install Android Studio",w:"Gives you the Android SDK and emulators.",c:{win:["winget install Google.AndroidStudio"],mac:["brew install --cask android-studio"],linux:["sudo snap install android-studio --classic"]},n:{all:"Open it once, finish the setup wizard, then create a virtual device in Device Manager."}},
+{t:"Install Appium and the Android driver",w:"Appium drives the app on the emulator.",c:{all:["npm install -g appium","appium driver install uiautomator2","appium driver doctor uiautomator2"]},n:{all:"Set ANDROID_HOME to your SDK folder if the doctor reports it missing."}},
+{t:"Start the server",w:"Leave it running, then connect your test client.",c:{all:["appium"]}}],
+"perf":[
+{t:"Install k6",w:"Load testing with scripts written in JavaScript.",c:{win:["winget install k6 --source winget"],mac:["brew install k6"],linux:["# Follow the Linux steps at grafana.com/docs/k6"]},x:["k6 version"]},
+{t:"Write and run a first script",w:"Save as script.js: import http from 'k6/http'; export default function(){ http.get('https://test.k6.io'); }",c:{all:["k6 run script.js","k6 run --vus 10 --duration 30s script.js"]}}],
+"ci":[
+{t:"Start from a Playwright project on GitHub",w:"Complete the Web UI TypeScript roadmap first.",c:{all:["npm init playwright@latest"]},n:{all:"Answer yes to 'Add a GitHub Actions workflow'."}},
+{t:"Push the workflow",w:"The file lives at .github/workflows/playwright.yml.",c:{all:["git add .","git commit -m \"Add CI workflow\"","git push"]}},
+{t:"Check the Actions tab",w:"Open your repo on github.com, click Actions, and open the latest run. Download the report from the run's artifacts.",c:{all:[]}},
+{t:"Add a status badge to your README",w:"Actions tab, your workflow, the three-dot menu, Create status badge.",c:{all:[]}}]
+};
+function pub(n,w){return {t:"Publish to GitHub",w:w||"Add a .gitignore first so you do not upload installed packages.",c:{all:["git init","git add .","git commit -m \"First "+n+" tests\"","git remote add origin https://github.com/YOUR-NAME/"+n+".git","git push -u origin main"]}}}
+function venv(d){return {t:"Make a project and virtual environment",w:"Keeps this project's packages separate.",c:{win:["mkdir "+d+" && cd "+d,"python -m venv .venv",".venv\\Scripts\\activate"],mac:["mkdir "+d+" && cd "+d,"python3 -m venv .venv","source .venv/bin/activate"],linux:["mkdir "+d+" && cd "+d,"python3 -m venv .venv","source .venv/bin/activate"]}}}
+var CHROME="Selenium 4 downloads the browser driver for you, but Chrome or Firefox must already be installed.";
+TRACK.cypress=[
+{t:"Create a project and install Cypress",w:"Cypress is added as a development dependency.",c:{all:["mkdir my-cypress-tests && cd my-cypress-tests","npm init -y","npm install cypress --save-dev"]},n:{linux:"Cypress needs a few system libraries on Linux. See docs.cypress.io, Install Cypress, for the list.",all:"The first run downloads Cypress itself, which can take a few minutes."}},
+{t:"Open Cypress and set up E2E testing",w:"Choose E2E Testing, keep the suggested config files, and pick a browser.",c:{all:["npx cypress open"]}},
+{t:"Write your first test",w:"Save this as cypress/e2e/first.cy.js. It also works as .cy.ts.",c:{all:["describe('Example', () => {\n  it('shows the page heading', () => {\n    cy.visit('https://example.com');\n    cy.get('h1').should('contain', 'Example Domain');\n  });\n});"]}},
+{t:"Run it without a window",w:"Headless runs are what you use in CI. Videos and screenshots are saved on failure.",c:{all:["npx cypress run"]}},
+pub("my-cypress-tests","Add a .gitignore containing node_modules/ first.")];
+TRACK["selenium-ts"]=[
+{t:"Create a project and install Selenium",w:"Mocha runs the tests and TypeScript compiles them.",c:{all:["mkdir my-selenium-ts && cd my-selenium-ts","npm init -y","npm install selenium-webdriver","npm install --save-dev typescript ts-node mocha @types/mocha @types/node @types/selenium-webdriver","npx tsc --init"]},n:{all:CHROME}},
+{t:"Write your first test",w:"Save this as test/example.test.ts.",c:{all:["import { Builder } from 'selenium-webdriver';\nimport { strictEqual } from 'assert';\n\ndescribe('Example', function () {\n  this.timeout(30000);\n  it('has the right title', async () => {\n    const driver = await new Builder().forBrowser('chrome').build();\n    try {\n      await driver.get('https://example.com');\n      strictEqual(await driver.getTitle(), 'Example Domain');\n    } finally {\n      await driver.quit();\n    }\n  });\n});"]}},
+{t:"Run the test",w:"A browser window opens and closes on its own.",c:{all:["npx mocha -r ts-node/register \"test/**/*.ts\""]},n:{all:"If you see a module error, set \"module\": \"commonjs\" in tsconfig.json."}},
+pub("my-selenium-ts","Add a .gitignore containing node_modules/ first.")];
+TRACK["selenium-py"]=[
+venv("my-selenium-py"),
+{t:"Install Selenium and pytest",w:"",c:{all:["pip install selenium pytest"]},n:{all:CHROME}},
+{t:"Write your first test",w:"Save this as test_example.py.",c:{all:["from selenium import webdriver\n\ndef test_title():\n    driver = webdriver.Chrome()\n    try:\n        driver.get(\"https://example.com\")\n        assert driver.title == \"Example Domain\"\n    finally:\n        driver.quit()"]}},
+{t:"Run the test",w:"",c:{all:["pytest -v"]}},
+pub("my-selenium-py","Add a .gitignore containing .venv/ first.")];
+TRACK["selenium-java"]=[
+{t:"Create a Maven project",w:"A standard Java project layout with JUnit included.",c:{all:["mvn archetype:generate -DgroupId=com.example -DartifactId=my-selenium-java -DarchetypeArtifactId=maven-archetype-quickstart -DinteractiveMode=false","cd my-selenium-java"]},n:{all:"If the build complains about the Java version, set maven.compiler.source and maven.compiler.target to 17 in pom.xml."}},
+{t:"Add Selenium to pom.xml",w:"Open pom.xml in VS Code and add this inside <dependencies>.",c:{all:[]},n:{all:"<dependency><groupId>org.seleniumhq.selenium</groupId><artifactId>selenium-java</artifactId><version>LATEST</version></dependency> (replace LATEST with the current version from mvnrepository.com). "+CHROME}},
+{t:"Write your first test",w:"Replace the generated test in src/test/java/com/example with ExampleTest.java.",c:{all:["package com.example;\n\nimport org.junit.Test;\nimport static org.junit.Assert.assertEquals;\nimport org.openqa.selenium.WebDriver;\nimport org.openqa.selenium.chrome.ChromeDriver;\n\npublic class ExampleTest {\n    @Test\n    public void titleIsCorrect() {\n        WebDriver driver = new ChromeDriver();\n        try {\n            driver.get(\"https://example.com\");\n            assertEquals(\"Example Domain\", driver.getTitle());\n        } finally {\n            driver.quit();\n        }\n    }\n}"]}},
+{t:"Run the test",w:"",c:{all:["mvn test"]}},
+pub("my-selenium-java","Add a .gitignore containing target/ first.")];
+TRACK["selenium-net"]=[
+{t:"Create an NUnit test project and add Selenium",w:"",c:{all:["dotnet new nunit -n MySeleniumTests","cd MySeleniumTests","dotnet add package Selenium.WebDriver"]},n:{all:CHROME}},
+{t:"Write your first test",w:"Replace the contents of UnitTest1.cs (or Tests.cs).",c:{all:["using NUnit.Framework;\nusing OpenQA.Selenium.Chrome;\n\nnamespace MySeleniumTests;\n\npublic class ExampleTests\n{\n    [Test]\n    public void TitleIsCorrect()\n    {\n        using var driver = new ChromeDriver();\n        driver.Navigate().GoToUrl(\"https://example.com\");\n        Assert.That(driver.Title, Is.EqualTo(\"Example Domain\"));\n    }\n}"]}},
+{t:"Run the test",w:"",c:{all:["dotnet test"]}},
+{t:"Publish to GitHub",w:"Create the .gitignore first with the first command.",c:{all:["dotnet new gitignore","git init","git add .","git commit -m \"First Selenium .NET tests\"","git remote add origin https://github.com/YOUR-NAME/my-selenium-net.git","git push -u origin main"]}}];
+TRACK.robot=[
+venv("my-robot-tests"),
+{t:"Install Robot Framework and SeleniumLibrary",w:"SeleniumLibrary gives Robot the keywords to control a browser.",c:{all:["pip install robotframework robotframework-seleniumlibrary","robot --version"]},n:{all:CHROME+" Prefer Playwright under the hood? Look at the robotframework-browser package later."}},
+{t:"Add the VS Code extension",w:"Gives you syntax colours, autocomplete and a test runner for .robot files.",c:{all:["code --install-extension d-biehl.robotcode"]}},
+{t:"Write your first test",w:"Make a tests folder and save this as tests/first.robot. Use four spaces between columns.",c:{all:["mkdir tests","*** Settings ***\nLibrary    SeleniumLibrary\n\n*** Test Cases ***\nOpen Example Page\n    Open Browser    https://example.com    chrome\n    Title Should Be    Example Domain\n    [Teardown]    Close Browser"]}},
+{t:"Run it and open the report",w:"Open results/report.html in your browser to see the pass or fail summary.",c:{all:["robot --outputdir results tests"]}},
+pub("my-robot-tests","Add a .gitignore containing .venv/ and results/ first.")];
+
+var GOALS={cypress:["Web UI with Cypress","Tests run inside the browser with instant visual feedback. JavaScript or TypeScript."],selenium:["Web UI with Selenium","The long-standing industry standard, with support for many languages and browsers."],robot:["Web UI with Robot Framework","Keyword-driven tests written in plain, readable text. Built on Python."],web:["Web UI testing","Playwright is a strong modern choice: fast, reliable, and built-in reports."],api:["API testing","Check endpoints directly. It is quick to run and a great portfolio piece."],mobile:["Mobile app testing","Appium drives real and virtual Android or iOS devices."],perf:["Performance testing","k6 turns a short script into a load test."],ci:["Continuous integration","Make GitHub run your tests automatically on every push."]};
+var $=function(i){return document.getElementById(i)};
+function val(n){return document.querySelector('input[name="'+n+'"]:checked').value}
+function load(){try{return JSON.parse(localStorage.getItem("qa-ticks")||"{}")}catch(e){return{}}}
+function save(o){try{localStorage.setItem("qa-ticks",JSON.stringify(o))}catch(e){}}
+function build(goal,lang){
+var f=["vscode","git"],t;
+if(goal==="web"||goal==="api"||goal==="selenium"){var fl={ts:["node"],py:["py"],java:["jdk","maven"],net:["dotnet"]}[lang];if(lang==="net"&&goal==="web")fl.push("pwsh");f=f.concat(fl);t=TRACK[goal+"-"+lang]}
+else{if(goal==="mobile"||goal==="ci"||goal==="cypress")f.push("node");if(goal==="robot")f.push("py");t=TRACK[goal]}
+return f.map(function(k){return Object.assign({id:k},FOUND[k])}).concat(t.map(function(s,i){return Object.assign({id:goal+(goal==="web"||goal==="api"||goal==="selenium"?lang:"")+i},s)}))}
+function pick(o,os){return o?(o[os]||o.all||null):null}
+function esc(s){return s.replace(/&/g,"&amp;").replace(/</g,"&lt;")}
+function render(){
+var goal=val("goal"),lang=val("lang"),os=val("os"),ticks=load();
+var uses=goal==="web"||goal==="api"||goal==="selenium";
+$("langset").hidden=!uses;
+$("langhint").textContent=({ts:"TypeScript is the Playwright default and popular in job ads.",py:"Python is great if you already know it or want pytest.",java:"Java is common in larger companies, with Maven, JUnit and REST Assured.",net:"C# fits teams on Microsoft tools, with NUnit and the dotnet CLI."})[lang];
+$("sumTitle").textContent=GOALS[goal][0];$("sumText").textContent=GOALS[goal][1];
+var steps=build(goal,lang),h="";
+steps.forEach(function(s,i){
+var cmds=(pick(s.c,os)||[]).concat(s.x||[]);
+var note=pick(s.n,os),on=!!ticks[s.id];
+h+='<li class="step'+(on?' done':'')+'" data-id="'+s.id+'"><div class="head"><button class="tick" type="button" aria-pressed="'+on+'" aria-label="Mark step '+(i+1)+' done">&#10003;</button><div><h3>'+(i+1)+'. '+esc(s.t)+'</h3>'+(s.w?'<p class="why">'+esc(s.w)+'</p>':'')+'</div></div>';
+if(cmds.length)h+='<div class="cmds">'+cmds.map(function(c){return '<div class="cmd">'+esc(c)+(c.charAt(0)==="#"?'':'<button type="button">Copy</button>')+'</div>'}).join("")+'</div>';
+if(note)h+='<p class="note">'+esc(note)+'</p>';
+h+='</li>'});
+$("steps").innerHTML=h;progress(steps,ticks)}
+function progress(steps,ticks){
+var d=steps.filter(function(s){return ticks[s.id]}).length;
+$("bar").style.width=(100*d/steps.length)+"%";
+$("count").textContent=d+" of "+steps.length+" steps done"}
+document.addEventListener("change",function(e){if(e.target.matches("input[type=radio]"))render()});
+$("steps").addEventListener("click",function(e){
+var li=e.target.closest(".step");if(!li)return;
+if(e.target.closest(".tick")){var t=load();t[li.dataset.id]=!t[li.dataset.id];save(t);render()}
+else if(e.target.matches(".cmd button")){var txt=e.target.parentNode.firstChild.textContent,b=e.target;
+try{navigator.clipboard.writeText(txt).then(function(){b.textContent="Copied";setTimeout(function(){b.textContent="Copy"},1400)})}catch(x){b.textContent="Select text"}}});
+$("reset").addEventListener("click",function(){save({});render()});
+(function(){var p=(navigator.userAgent||"").toLowerCase(),o=p.indexOf("win")>-1?"win":p.indexOf("mac")>-1?"mac":"linux";$("o-"+o).checked=true;render()})();
+</script>
+</body>
+</html>
