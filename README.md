@@ -58,7 +58,7 @@ The page is one self-contained file. It has no build step and needs no internet 
 Download the repository, then double-click `QA Automation setup roadmap Index.html`. Or, with Git:
 
 ```bash
-git clone https://github.com/YOUR-USERNAME/YOUR-REPO-NAME.git
+git clone [https://TesterTan01.github.io/qa-test automation-setup-guide/](https://github.com/TesterTan01/qa-automation-setup-guide/)
 cd YOUR-REPO-NAME
 ```
 
