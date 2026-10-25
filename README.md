@@ -59,7 +59,7 @@ Download the repository, then double-click `QA Automation setup roadmap Index.ht
 
 ```bash
 git clone [https://TesterTan01.github.io/qa-test automation-setup-guide/](https://github.com/TesterTan01/qa-automation-setup-guide/)
-cd YOUR-REPO-NAME
+cd qa-automation-setup-guide
 ```
 
 Then open `QA Automation setup roadmap Index.html` in your browser.
